@@ -1,0 +1,5 @@
+# Feature screens go here (each feature in its own package)
+# Example: 
+#   - feature/auth/ (LoginScreen, RegisterScreen, LoginViewModel)
+#   - feature/profile/ (ProfileScreen, ProfileViewModel)
+#   - feature/home/ (HomeScreen, HomeViewModel)

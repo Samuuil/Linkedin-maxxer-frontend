@@ -1,0 +1,2 @@
+# Session management (tokens, auth interceptors, etc.) go here
+# Example: TokenInterceptor, TokenAuthenticator, etc.

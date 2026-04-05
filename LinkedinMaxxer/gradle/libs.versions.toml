@@ -1,0 +1,87 @@
+[versions]
+agp = "8.8.0"
+kotlin = "2.0.0"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.10.0"
+composeBom = "2024.04.01"
+
+# Koin
+koin_bom_version = "3.5.0"
+koin_compose_version = "3.5.0"
+
+# Material
+material-extended = "1.7.7"
+material = "1.12.0"
+
+# Retrofit
+okhttp = "4.12.0"
+retrofit = "2.9.0"
+logging-interceptor = "4.12.0"
+converter_scalar_version = "2.1.0"
+
+# Json
+kotlinx-serialization-json = "1.7.3"
+kotlinx-serialization-converter-version = "1.0.0"
+gson_version = "2.9.0"
+
+# Data Store
+data_store_version = "1.1.2"
+
+kapt = "2.0.0"
+
+# Coil
+coil_version = "2.6.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+material-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-extended" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# Koin
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin_bom_version" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_compose_version"}
+koin-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koin_compose_version" }
+
+# Retrofit
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "logging-interceptor" }
+converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converter_scalar_version" }
+
+# Json
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter-version" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson_version"}
+gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "gson_version" }
+
+# Data store
+data-store = { group = "androidx.datastore", name = "datastore-core", version.ref = "data_store_version" }
+data-store-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "data_store_version" }
+
+# Coil
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
