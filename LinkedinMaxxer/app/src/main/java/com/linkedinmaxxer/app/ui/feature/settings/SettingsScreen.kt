@@ -50,6 +50,7 @@ fun SettingsScreen(
     onLoggedOut: () -> Unit,
     onOpenHome: () -> Unit,
     onOpenSetup: () -> Unit,
+    onOpenPosts: () -> Unit,
 ) {
     val context = LocalContext.current
     LaunchedEffect(data.errorMessage) {
@@ -67,7 +68,12 @@ fun SettingsScreen(
         bottomBar = {
             BottomNavBar(
                 selectedKey = "settings",
-                onClick = { key -> if (key == "home") onOpenHome() },
+                onClick = { key ->
+                    when (key) {
+                        "home" -> onOpenHome()
+                        "posts" -> onOpenPosts()
+                    }
+                },
             )
         },
     ) { paddingValues ->
