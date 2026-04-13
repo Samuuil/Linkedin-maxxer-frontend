@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Article
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
@@ -46,6 +45,8 @@ fun PostsScreen(
     onAction: (PostsAction) -> Unit,
     onOpenCreatePost: () -> Unit,
     onOpenHome: () -> Unit,
+    onOpenSubscriptions: () -> Unit,
+    onOpenHints: () -> Unit,
     onOpenSettings: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -63,6 +64,8 @@ fun PostsScreen(
                 onClick = { key ->
                     when (key) {
                         "home" -> onOpenHome()
+                        "subs" -> onOpenSubscriptions()
+                        "hints" -> onOpenHints()
                         "settings" -> onOpenSettings()
                     }
                 },
@@ -112,7 +115,6 @@ fun PostsScreen(
                         ) { Icon(Icons.Default.Article, contentDescription = null, tint = Primary) }
                         Text("Executive Lens", style = MaterialTheme.typography.titleMedium, color = Primary)
                     }
-                    Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Spacer(modifier = Modifier.size(12.dp))
                 Text("YOUR INTELLIGENCE", style = MaterialTheme.typography.labelSmall, color = Primary)

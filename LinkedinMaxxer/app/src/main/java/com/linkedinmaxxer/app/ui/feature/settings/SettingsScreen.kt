@@ -2,6 +2,7 @@ package com.linkedinmaxxer.app.ui.feature.settings
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mail
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.Button
@@ -51,6 +51,8 @@ fun SettingsScreen(
     onOpenHome: () -> Unit,
     onOpenSetup: () -> Unit,
     onOpenPosts: () -> Unit,
+    onOpenSubscriptions: () -> Unit,
+    onOpenHints: () -> Unit,
 ) {
     val context = LocalContext.current
     LaunchedEffect(data.errorMessage) {
@@ -72,6 +74,8 @@ fun SettingsScreen(
                     when (key) {
                         "home" -> onOpenHome()
                         "posts" -> onOpenPosts()
+                        "subs" -> onOpenSubscriptions()
+                        "hints" -> onOpenHints()
                     }
                 },
             )
@@ -112,7 +116,6 @@ fun SettingsScreen(
                     ) { Icon(Icons.Default.Person, contentDescription = null, tint = Primary) }
                     Text("Executive Lens", style = MaterialTheme.typography.titleMedium, color = Primary)
                 }
-                Icon(Icons.Default.Notifications, contentDescription = null, tint = Primary)
             }
 
             Text("ACCOUNT", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

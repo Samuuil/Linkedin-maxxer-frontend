@@ -8,20 +8,25 @@ import com.linkedinmaxxer.app.data.datasource.LMAccountDataSource
 import com.linkedinmaxxer.app.data.datasource.LMAuthDataSource
 import com.linkedinmaxxer.app.data.datasource.LMDashboardDataSource
 import com.linkedinmaxxer.app.data.datasource.LMPostsDataSource
+import com.linkedinmaxxer.app.data.datasource.LMSubscriptionDataSource
 import com.linkedinmaxxer.app.data.datasource.PostsDataSource
+import com.linkedinmaxxer.app.data.datasource.SubscriptionDataSource
 import com.linkedinmaxxer.app.data.repository.LMAccountRepository
 import com.linkedinmaxxer.app.data.repository.LMAuthRepository
 import com.linkedinmaxxer.app.data.repository.LMDashboardRepository
 import com.linkedinmaxxer.app.data.repository.LMPostsRepository
+import com.linkedinmaxxer.app.data.repository.LMSubscriptionRepository
 import com.linkedinmaxxer.app.data.service.DashboardService
 import com.linkedinmaxxer.app.data.session.AuthTokenInterceptor
 import com.linkedinmaxxer.app.data.service.AuthService
 import com.linkedinmaxxer.app.data.service.PostsService
+import com.linkedinmaxxer.app.data.service.SubscriptionService
 import com.linkedinmaxxer.app.data.service.UserService
 import com.linkedinmaxxer.app.domain.repository.AccountRepository
 import com.linkedinmaxxer.app.domain.repository.AuthRepository
 import com.linkedinmaxxer.app.domain.repository.DashboardRepository
 import com.linkedinmaxxer.app.domain.repository.PostsRepository
+import com.linkedinmaxxer.app.domain.repository.SubscriptionRepository
 import com.linkedinmaxxer.app.domain.usecase.account.GetProfileUseCase
 import com.linkedinmaxxer.app.domain.usecase.account.LogoutUseCase
 import com.linkedinmaxxer.app.domain.usecase.account.SetupLinkedinUseCase
@@ -33,11 +38,20 @@ import com.linkedinmaxxer.app.domain.usecase.dashboard.GetDashboardSummaryUseCas
 import com.linkedinmaxxer.app.domain.usecase.posts.CreatePostUseCase
 import com.linkedinmaxxer.app.domain.usecase.posts.EnhanceDescriptionUseCase
 import com.linkedinmaxxer.app.domain.usecase.posts.GetPostsUseCase
+import com.linkedinmaxxer.app.domain.usecase.subscription.GetSubscriptionsUseCase
+import com.linkedinmaxxer.app.domain.usecase.subscription.GetSuggestionsUseCase
+import com.linkedinmaxxer.app.domain.usecase.subscription.RespondSuggestionUseCase
+import com.linkedinmaxxer.app.domain.usecase.subscription.SubscribeUseCase
+import com.linkedinmaxxer.app.domain.usecase.subscription.ToggleAutoCommentUseCase
+import com.linkedinmaxxer.app.domain.usecase.subscription.UnsubscribeUseCase
 import com.linkedinmaxxer.app.ui.feature.home.HomeViewModel
+import com.linkedinmaxxer.app.ui.feature.hints.HintsViewModel
 import com.linkedinmaxxer.app.ui.feature.posts.PostsViewModel
 import com.linkedinmaxxer.app.ui.feature.posts.create.CreatePostViewModel
 import com.linkedinmaxxer.app.ui.feature.settings.SettingsViewModel
 import com.linkedinmaxxer.app.ui.feature.setup.SetupViewModel
+import com.linkedinmaxxer.app.ui.feature.subscriptions.SubscriptionsViewModel
+import com.linkedinmaxxer.app.ui.feature.hints.SuggestionReviewViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -59,6 +73,12 @@ val appModule = module {
     factory { GetProfileUseCase(repository = lazy { get<AccountRepository>() }) }
     factory { LogoutUseCase(repository = lazy { get<AccountRepository>() }) }
     factory { SetupLinkedinUseCase(repository = lazy { get<AccountRepository>() }) }
+    factory { GetSubscriptionsUseCase(repository = lazy { get<SubscriptionRepository>() }) }
+    factory { SubscribeUseCase(repository = lazy { get<SubscriptionRepository>() }) }
+    factory { UnsubscribeUseCase(repository = lazy { get<SubscriptionRepository>() }) }
+    factory { ToggleAutoCommentUseCase(repository = lazy { get<SubscriptionRepository>() }) }
+    factory { GetSuggestionsUseCase(repository = lazy { get<SubscriptionRepository>() }) }
+    factory { RespondSuggestionUseCase(repository = lazy { get<SubscriptionRepository>() }) }
 
     // Network - OkHttpClient
     single<OkHttpClient> {
@@ -96,13 +116,16 @@ val appModule = module {
     single<UserService> { get<Retrofit>().create(UserService::class.java) }
     single<DashboardService> { get<Retrofit>().create(DashboardService::class.java) }
     single<PostsService> { get<Retrofit>().create(PostsService::class.java) }
+    single<SubscriptionService> { get<Retrofit>().create(SubscriptionService::class.java) }
     factory<AuthDataSource> { LMAuthDataSource(get()) }
     factory<DashboardDataSource> { LMDashboardDataSource(get()) }
     factory<PostsDataSource> { LMPostsDataSource(get()) }
+    factory<SubscriptionDataSource> { LMSubscriptionDataSource(get()) }
     factory<AccountDataSource> { LMAccountDataSource(get(), get()) }
     factory<AuthRepository> { LMAuthRepository(get()) }
     factory<DashboardRepository> { LMDashboardRepository(get()) }
     factory<PostsRepository> { LMPostsRepository(get()) }
+    factory<SubscriptionRepository> { LMSubscriptionRepository(get()) }
     factory<AccountRepository> { LMAccountRepository(get()) }
 
     viewModel { LoginViewModel(loginUseCase = get(), context = androidContext()) }
@@ -110,6 +133,9 @@ val appModule = module {
     viewModel { SetupViewModel(setupLinkedinUseCase = get()) }
     viewModel { HomeViewModel(getDashboardSummaryUseCase = get()) }
     viewModel { PostsViewModel(getPostsUseCase = get()) }
+    viewModel { SubscriptionsViewModel(getSubscriptionsUseCase = get(), subscribeUseCase = get(), unsubscribeUseCase = get(), toggleAutoCommentUseCase = get()) }
+    viewModel { HintsViewModel(getSuggestionsUseCase = get(), respondSuggestionUseCase = get()) }
+    viewModel { SuggestionReviewViewModel(getSuggestionsUseCase = get(), respondSuggestionUseCase = get()) }
     viewModel { CreatePostViewModel(createPostUseCase = get(), enhanceDescriptionUseCase = get()) }
     viewModel { SettingsViewModel(getProfileUseCase = get(), logoutUseCase = get()) }
 }
