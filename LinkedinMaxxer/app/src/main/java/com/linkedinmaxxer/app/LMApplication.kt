@@ -1,6 +1,7 @@
 package com.linkedinmaxxer.app
 
 import android.app.Application
+import android.util.Log
 import com.linkedinmaxxer.app.data.session.SessionManager
 import com.linkedinmaxxer.app.data.session.dataStore
 import kotlinx.coroutines.runBlocking
@@ -10,6 +11,7 @@ import org.koin.core.context.startKoin
 class LMApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        Log.i("LMApplication", "BASE_URL=${BuildConfig.BASE_URL}")
 
         startKoin {
             androidContext(this@LMApplication)

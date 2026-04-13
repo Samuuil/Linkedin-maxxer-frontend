@@ -14,6 +14,8 @@ import com.linkedinmaxxer.app.ui.feature.home.HomeScreen
 import com.linkedinmaxxer.app.ui.feature.home.HomeViewModel
 import com.linkedinmaxxer.app.ui.feature.settings.SettingsScreen
 import com.linkedinmaxxer.app.ui.feature.settings.SettingsViewModel
+import com.linkedinmaxxer.app.ui.feature.setup.SetupScreen
+import com.linkedinmaxxer.app.ui.feature.setup.SetupViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -44,6 +46,16 @@ fun LMNavHost(navController: NavHostController) {
             )
         }
 
+        composable(Screens.SETUP_SCREEN) {
+            val viewModel = koinViewModel<SetupViewModel>()
+            val state by viewModel.state.collectAsState()
+            SetupScreen(
+                data = state,
+                onAction = viewModel::onAction,
+                onContinue = { navigateAndPopBackstack(Screens.HOME_SCREEN, navController) },
+            )
+        }
+
         composable(Screens.HOME_SCREEN) {
             val viewModel = koinViewModel<HomeViewModel>()
             val state by viewModel.state.collectAsState()
@@ -62,6 +74,7 @@ fun LMNavHost(navController: NavHostController) {
                 onAction = viewModel::onAction,
                 onLoggedOut = { navigateAndPopBackstack(Screens.LOGIN_SCREEN, navController) },
                 onOpenHome = { navController.navigate(Screens.HOME_SCREEN) },
+                onOpenSetup = { navController.navigate(Screens.SETUP_SCREEN) },
             )
         }
     }
