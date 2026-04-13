@@ -30,3 +30,9 @@ fun <T> resultBody(result: Result<T>): Result<T> = result.fold(
     onSuccess = { Result.success(it) },
     onFailure = { Result.failure(it) },
 )
+
+suspend fun <T> safeRequest(call: suspend () -> Response<T>): Result<T> = try {
+    requestBody(call())
+} catch (exception: Exception) {
+    Result.failure(NetworkException.NetworkError(exception.message ?: "Network error"))
+}

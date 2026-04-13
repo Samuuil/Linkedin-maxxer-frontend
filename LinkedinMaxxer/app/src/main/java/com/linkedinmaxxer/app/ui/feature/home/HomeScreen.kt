@@ -53,6 +53,8 @@ fun HomeScreen(
     data: HomeUIData,
     onAction: (HomeAction) -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenPosts: () -> Unit,
+    onOpenCreatePost: () -> Unit,
 ) {
     val context = LocalContext.current
     LaunchedEffect(data.errorMessage) {
@@ -66,7 +68,12 @@ fun HomeScreen(
         bottomBar = {
             BottomNavBar(
                 selectedKey = "home",
-                onClick = { key -> if (key == "settings") onOpenSettings() },
+                onClick = { key ->
+                    when (key) {
+                        "settings" -> onOpenSettings()
+                        "posts" -> onOpenPosts()
+                    }
+                },
             )
         },
     ) { paddingValues ->
@@ -135,7 +142,7 @@ fun HomeScreen(
                 Text("Quick Actions", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(8.dp))
                 Button(
-                    onClick = {},
+                    onClick = onOpenCreatePost,
                     shape = RoundedCornerShape(999.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Primary),
                     modifier = Modifier.fillMaxWidth(),
