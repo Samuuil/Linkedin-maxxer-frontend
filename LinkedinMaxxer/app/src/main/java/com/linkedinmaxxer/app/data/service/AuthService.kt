@@ -1,8 +1,10 @@
 package com.linkedinmaxxer.app.data.service
 
 import com.linkedinmaxxer.app.data.constants.Auth
+import com.linkedinmaxxer.app.data.constants.User
 import com.linkedinmaxxer.app.domain.model.request.LoginModel
 import com.linkedinmaxxer.app.domain.model.request.RegisterModel
+import com.linkedinmaxxer.app.domain.model.request.UpdatePushTokenModel
 import com.linkedinmaxxer.app.domain.model.response.AuthTokens
 import com.linkedinmaxxer.app.domain.model.response.UserProfile
 import retrofit2.Response
@@ -25,4 +27,7 @@ interface AuthService {
 
     @POST(Auth.LOGOUT)
     suspend fun logout(): Response<Map<String, String>>
+
+    @POST(User.PUSH_TOKEN)
+    suspend fun updatePushToken(@Body body: UpdatePushTokenModel): Response<Unit>
 }

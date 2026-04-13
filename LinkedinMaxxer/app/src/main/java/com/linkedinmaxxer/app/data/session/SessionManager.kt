@@ -1,7 +1,6 @@
 package com.linkedinmaxxer.app.data.session
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.updateData
 import kotlinx.coroutines.flow.first
 
 object SessionManager {

@@ -1,7 +1,9 @@
 package com.linkedinmaxxer.app.ui.feature.settings
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,14 +11,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -29,6 +39,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.linkedinmaxxer.app.ui.components.BottomNavBar
+import com.linkedinmaxxer.app.ui.theme.ErrorContainer
+import com.linkedinmaxxer.app.ui.theme.Primary
+import com.linkedinmaxxer.app.ui.theme.PrimaryContainer
 
 @Composable
 fun SettingsScreen(
@@ -36,6 +49,7 @@ fun SettingsScreen(
     onAction: (SettingsAction) -> Unit,
     onLoggedOut: () -> Unit,
     onOpenHome: () -> Unit,
+    onOpenSetup: () -> Unit,
 ) {
     val context = LocalContext.current
     LaunchedEffect(data.errorMessage) {
@@ -74,38 +88,70 @@ fun SettingsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
+                .padding(horizontal = 18.dp, vertical = 8.dp)
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Executive Lens", style = MaterialTheme.typography.titleMedium)
-                androidx.compose.material3.Icon(Icons.Default.Notifications, contentDescription = null)
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .size(38.dp)
+                            .background(PrimaryContainer.copy(alpha = 0.2f), CircleShape),
+                        contentAlignment = Alignment.Center,
+                    ) { Icon(Icons.Default.Person, contentDescription = null, tint = Primary) }
+                    Text("Executive Lens", style = MaterialTheme.typography.titleMedium, color = Primary)
+                }
+                Icon(Icons.Default.Notifications, contentDescription = null, tint = Primary)
             }
 
-            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+            Text("ACCOUNT", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), shape = RoundedCornerShape(16.dp)) {
                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("ACCOUNT", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("User Profile", fontWeight = FontWeight.Bold)
-                    Text(data.profile?.linkedinUsername ?: "LinkedIn username not connected", style = MaterialTheme.typography.bodySmall)
-                    Text("Email", fontWeight = FontWeight.Bold)
-                    Text(data.profile?.email.orEmpty(), style = MaterialTheme.typography.bodySmall)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(36.dp).background(PrimaryContainer.copy(alpha = 0.2f), CircleShape), contentAlignment = Alignment.Center) {
+                            Icon(Icons.Default.Person, contentDescription = null, tint = Primary)
+                        }
+                        Column(Modifier.weight(1f)) {
+                            Text("User Profile", fontWeight = FontWeight.Bold)
+                            Text(data.profile?.linkedinUsername ?: "LinkedIn not connected", style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Box(Modifier.size(36.dp).background(MaterialTheme.colorScheme.surfaceVariant, CircleShape), contentAlignment = Alignment.Center) {
+                            Icon(Icons.Default.Mail, contentDescription = null)
+                        }
+                        Column(Modifier.weight(1f)) {
+                            Text("Email", fontWeight = FontWeight.Bold)
+                            Text(data.profile?.email.orEmpty(), style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
                 }
             }
 
-            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+            Text("LINKEDIN CONNECTIONS", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), shape = RoundedCornerShape(16.dp)) {
                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("LINKEDIN CONNECTIONS", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("API Credentials", fontWeight = FontWeight.Bold)
-                    Text("Connected via backend profile/auth state", style = MaterialTheme.typography.bodySmall)
+                    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Column {
+                            Text("API Credentials", fontWeight = FontWeight.Bold)
+                            Text("Managed in setup checklist", style = MaterialTheme.typography.bodySmall)
+                        }
+                        Button(
+                            onClick = onOpenSetup,
+                            shape = RoundedCornerShape(999.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                        ) { Text("Edit", color = MaterialTheme.colorScheme.onSurface) }
+                    }
                 }
             }
 
-            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
+            Text("PREFERENCES", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), shape = RoundedCornerShape(16.dp)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -115,10 +161,7 @@ fun SettingsScreen(
                 ) {
                     Column {
                         Text("Push Notifications", fontWeight = FontWeight.Bold)
-                        Text(
-                            "UI-only toggle (backend supports push token string update).",
-                            style = MaterialTheme.typography.bodySmall,
-                        )
+                        Text("Linked to configured push token", style = MaterialTheme.typography.bodySmall)
                     }
                     Switch(
                         checked = data.pushNotificationsEnabled,
@@ -127,10 +170,33 @@ fun SettingsScreen(
                 }
             }
 
-            Spacer(Modifier.height(4.dp))
-            Button(onClick = { onAction(SettingsAction.OnLogoutClicked) }, modifier = Modifier.fillMaxWidth()) {
+            Text("SUPPORT", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), shape = RoundedCornerShape(16.dp)) {
+                Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("Help Center", fontWeight = FontWeight.SemiBold)
+                    Text("Privacy Policy", fontWeight = FontWeight.SemiBold)
+                }
+            }
+
+            Spacer(Modifier.height(2.dp))
+            Button(
+                onClick = { onAction(SettingsAction.OnLogoutClicked) },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = ErrorContainer, contentColor = MaterialTheme.colorScheme.error),
+                shape = RoundedCornerShape(14.dp),
+            ) {
+                Icon(Icons.Default.Logout, contentDescription = null)
+                Spacer(Modifier.size(6.dp))
                 Text("Logout")
             }
+            Text(
+                "EXECUTIVE LENS V2.4.1 (STABLE)",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 2.dp),
+            )
         }
     }
 }

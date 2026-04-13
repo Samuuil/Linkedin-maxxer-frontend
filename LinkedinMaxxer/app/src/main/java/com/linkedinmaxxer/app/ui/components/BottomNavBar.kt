@@ -22,10 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import com.linkedinmaxxer.app.ui.theme.Primary
 import com.linkedinmaxxer.app.ui.theme.PrimaryContainer
-import com.linkedinmaxxer.app.ui.theme.SurfaceContainerHighest
 
 data class BottomNavItem(
     val key: String,
@@ -51,7 +51,7 @@ fun BottomNavBar(
         modifier = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-            .padding(vertical = 8.dp, horizontal = 8.dp),
+            .padding(vertical = 8.dp, horizontal = 6.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         items.forEach { item ->
@@ -60,13 +60,13 @@ fun BottomNavBar(
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onClick(item.key) }
-                    .padding(vertical = 6.dp)
+                    .padding(vertical = 4.dp, horizontal = 2.dp)
                     .background(
-                        if (isSelected) PrimaryContainer.copy(alpha = 0.15f) else SurfaceContainerHighest.copy(alpha = 0f),
-                        RoundedCornerShape(16.dp),
+                        if (isSelected) PrimaryContainer.copy(alpha = 0.2f) else androidx.compose.ui.graphics.Color.Transparent,
+                        RoundedCornerShape(14.dp),
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(2.dp),
+                verticalArrangement = Arrangement.spacedBy(1.dp),
             ) {
                 Icon(
                     imageVector = item.icon,
@@ -77,6 +77,7 @@ fun BottomNavBar(
                     text = item.label.uppercase(),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
+                    fontSize = 10.sp,
                     color = if (isSelected) Primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
