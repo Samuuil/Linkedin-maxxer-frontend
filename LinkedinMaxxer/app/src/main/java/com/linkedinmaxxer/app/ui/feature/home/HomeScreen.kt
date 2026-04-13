@@ -2,6 +2,7 @@ package com.linkedinmaxxer.app.ui.feature.home
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,6 @@ import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Insights
 import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Subscriptions
 import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Button
@@ -55,6 +55,8 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     onOpenPosts: () -> Unit,
     onOpenCreatePost: () -> Unit,
+    onOpenSubscriptions: () -> Unit,
+    onOpenHints: () -> Unit,
 ) {
     val context = LocalContext.current
     LaunchedEffect(data.errorMessage) {
@@ -72,6 +74,8 @@ fun HomeScreen(
                     when (key) {
                         "settings" -> onOpenSettings()
                         "posts" -> onOpenPosts()
+                        "subs" -> onOpenSubscriptions()
+                        "hints" -> onOpenHints()
                     }
                 },
             )
@@ -114,7 +118,6 @@ fun HomeScreen(
                         }
                         Text("Executive Lens", style = MaterialTheme.typography.titleMedium, color = Primary)
                     }
-                    Icon(Icons.Default.Notifications, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Spacer(Modifier.height(12.dp))
                 Text(
@@ -154,13 +157,13 @@ fun HomeScreen(
                 Spacer(Modifier.height(8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Button(
-                        onClick = {},
+                        onClick = onOpenSubscriptions,
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surface),
                     ) { Text("Add Subscription", color = MaterialTheme.colorScheme.onSurface) }
                     Button(
-                        onClick = {},
+                        onClick = onOpenHints,
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surface),

@@ -16,7 +16,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Token
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -110,7 +109,6 @@ fun SetupScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text("Executive Lens", style = MaterialTheme.typography.titleMedium, color = Primary)
-                androidx.compose.material3.Icon(Icons.Default.Notifications, contentDescription = null, tint = Primary)
             }
 
             Text("Configuration\nChecklist", style = MaterialTheme.typography.headlineMedium)

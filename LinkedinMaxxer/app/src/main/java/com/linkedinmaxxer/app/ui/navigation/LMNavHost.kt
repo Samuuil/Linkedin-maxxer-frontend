@@ -1,17 +1,23 @@
 package com.linkedinmaxxer.app.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.linkedinmaxxer.app.ui.feature.auth.LoginScreen
 import com.linkedinmaxxer.app.ui.feature.auth.LoginViewModel
 import com.linkedinmaxxer.app.ui.feature.auth.RegisterScreen
 import com.linkedinmaxxer.app.ui.feature.auth.RegisterViewModel
 import com.linkedinmaxxer.app.ui.feature.home.HomeScreen
 import com.linkedinmaxxer.app.ui.feature.home.HomeViewModel
+import com.linkedinmaxxer.app.ui.feature.hints.HintsScreen
+import com.linkedinmaxxer.app.ui.feature.hints.HintsViewModel
+import com.linkedinmaxxer.app.ui.feature.hints.SuggestionReviewScreen
+import com.linkedinmaxxer.app.ui.feature.hints.SuggestionReviewViewModel
 import com.linkedinmaxxer.app.ui.feature.posts.PostsScreen
 import com.linkedinmaxxer.app.ui.feature.posts.PostsViewModel
 import com.linkedinmaxxer.app.ui.feature.posts.create.CreatePostScreen
@@ -20,6 +26,8 @@ import com.linkedinmaxxer.app.ui.feature.settings.SettingsScreen
 import com.linkedinmaxxer.app.ui.feature.settings.SettingsViewModel
 import com.linkedinmaxxer.app.ui.feature.setup.SetupScreen
 import com.linkedinmaxxer.app.ui.feature.setup.SetupViewModel
+import com.linkedinmaxxer.app.ui.feature.subscriptions.SubscriptionsScreen
+import com.linkedinmaxxer.app.ui.feature.subscriptions.SubscriptionsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -69,6 +77,8 @@ fun LMNavHost(navController: NavHostController) {
                 onOpenSettings = { navController.navigate(Screens.SETTINGS_SCREEN) },
                 onOpenPosts = { navController.navigate(Screens.POSTS_SCREEN) },
                 onOpenCreatePost = { navController.navigate(Screens.CREATE_POST_SCREEN) },
+                onOpenSubscriptions = { navController.navigate(Screens.SUBSCRIPTIONS_SCREEN) },
+                onOpenHints = { navController.navigate(Screens.HINTS_SCREEN) },
             )
         }
 
@@ -80,6 +90,37 @@ fun LMNavHost(navController: NavHostController) {
                 onAction = viewModel::onAction,
                 onOpenCreatePost = { navController.navigate(Screens.CREATE_POST_SCREEN) },
                 onOpenHome = { navigateAndPopBackstack(Screens.HOME_SCREEN, navController) },
+                onOpenSubscriptions = { navController.navigate(Screens.SUBSCRIPTIONS_SCREEN) },
+                onOpenHints = { navController.navigate(Screens.HINTS_SCREEN) },
+                onOpenSettings = { navController.navigate(Screens.SETTINGS_SCREEN) },
+            )
+        }
+
+        composable(Screens.SUBSCRIPTIONS_SCREEN) {
+            val viewModel = koinViewModel<SubscriptionsViewModel>()
+            val state by viewModel.state.collectAsState()
+            SubscriptionsScreen(
+                data = state,
+                onAction = viewModel::onAction,
+                onOpenHome = { navController.navigate(Screens.HOME_SCREEN) },
+                onOpenPosts = { navController.navigate(Screens.POSTS_SCREEN) },
+                onOpenHints = { navController.navigate(Screens.HINTS_SCREEN) },
+                onOpenSettings = { navController.navigate(Screens.SETTINGS_SCREEN) },
+            )
+        }
+
+        composable(Screens.HINTS_SCREEN) {
+            val viewModel = koinViewModel<HintsViewModel>()
+            val state by viewModel.state.collectAsState()
+            HintsScreen(
+                data = state,
+                onAction = viewModel::onAction,
+                onOpenSuggestion = { suggestionId ->
+                    navController.navigate("${Screens.SUGGESTION_REVIEW_SCREEN}/$suggestionId")
+                },
+                onOpenHome = { navController.navigate(Screens.HOME_SCREEN) },
+                onOpenPosts = { navController.navigate(Screens.POSTS_SCREEN) },
+                onOpenSubs = { navController.navigate(Screens.SUBSCRIPTIONS_SCREEN) },
                 onOpenSettings = { navController.navigate(Screens.SETTINGS_SCREEN) },
             )
         }
@@ -104,6 +145,23 @@ fun LMNavHost(navController: NavHostController) {
                 onOpenHome = { navController.navigate(Screens.HOME_SCREEN) },
                 onOpenSetup = { navController.navigate(Screens.SETUP_SCREEN) },
                 onOpenPosts = { navController.navigate(Screens.POSTS_SCREEN) },
+                onOpenSubscriptions = { navController.navigate(Screens.SUBSCRIPTIONS_SCREEN) },
+                onOpenHints = { navController.navigate(Screens.HINTS_SCREEN) },
+            )
+        }
+
+        composable(
+            route = Screens.SUGGESTION_REVIEW_ROUTE,
+            arguments = listOf(navArgument(Screens.SUGGESTION_ID_ARG) { type = NavType.StringType }),
+        ) { backStackEntry ->
+            val suggestionId = backStackEntry.arguments?.getString(Screens.SUGGESTION_ID_ARG).orEmpty()
+            val viewModel = koinViewModel<SuggestionReviewViewModel>()
+            val state by viewModel.state.collectAsState()
+            SuggestionReviewScreen(
+                suggestionId = suggestionId,
+                data = state,
+                onAction = viewModel::onAction,
+                onBack = { navController.popBackStack() },
             )
         }
     }
