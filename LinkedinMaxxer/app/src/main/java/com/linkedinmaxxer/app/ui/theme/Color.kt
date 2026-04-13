@@ -2,15 +2,13 @@ package com.linkedinmaxxer.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
-// LinkedIn Brand Colors
-val LinkedInBlue = Color(0xFF0077B5)
-val LinkedInDarkBlue = Color(0xFF004471)
-val LinkedInLightBlue = Color(0xFF378FE9)
+val Primary = Color(0xFF004E99)
+val PrimaryContainer = Color(0xFF0A66C2)
+val OnPrimary = Color(0xFFFFFFFF)
+val Background = Color(0xFFFAF9F6)
+val Surface = Color(0xFFFAF9F6)
+val SurfaceContainerLowest = Color(0xFFFFFFFF)
+val SurfaceContainerHighest = Color(0xFFE3E2DF)
+val OnSurface = Color(0xFF1B1C1A)
+val OnSurfaceVariant = Color(0xFF414752)
+val ErrorContainer = Color(0xFFFFDAD6)
