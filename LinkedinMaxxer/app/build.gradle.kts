@@ -23,12 +23,12 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3002/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://maxxer.online/api/\"")
         }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BASE_URL", "\"https://api.linkedinmaxxer.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://maxxer.online/api/\"")
         }
     }
     compileOptions {
