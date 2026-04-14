@@ -18,9 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.linkedinmaxxer.app.ui.theme.Primary
 
 @Composable
 fun RegisterScreen(
@@ -50,7 +48,7 @@ fun RegisterScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         AuthBrandHeader(
-            title = "Executive Lens",
+            title = "LinkedIn Maxxer",
             subtitle = "Create your professional sanctuary.",
             modifier = Modifier.padding(top = 8.dp),
         )
@@ -68,7 +66,7 @@ fun RegisterScreen(
             label = "Password",
             value = data.password,
             onValueChange = { onAction(RegisterAction.OnPasswordChanged(it)) },
-            placeholder = "••••••••",
+            placeholder = "",
             isPassword = true,
             isPasswordVisible = data.isPasswordVisible,
             onPasswordVisibilityToggle = { onAction(RegisterAction.OnPasswordVisibilityToggle) },
@@ -78,7 +76,7 @@ fun RegisterScreen(
             label = "Confirm Password",
             value = data.confirmPassword,
             onValueChange = { onAction(RegisterAction.OnConfirmPasswordChanged(it)) },
-            placeholder = "••••••••",
+            placeholder = "",
             isPassword = true,
             isPasswordVisible = data.isConfirmPasswordVisible,
             onPasswordVisibilityToggle = { onAction(RegisterAction.OnConfirmPasswordVisibilityToggle) },
@@ -108,16 +106,6 @@ fun RegisterScreen(
             suffix = "Login",
             onClick = onNavigateToLogin,
             modifier = Modifier.padding(top = 8.dp),
-        )
-
-        Text(
-            text = "Enterprise Grade Security  •  Privacy First",
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.SemiBold,
-            color = Primary,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
         )
     }
 }

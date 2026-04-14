@@ -5,13 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VerifiedUser
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -46,7 +43,7 @@ fun LoginScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         AuthBrandHeader(
-            title = "Executive Lens",
+            title = "LinkedIn Maxxer",
             subtitle = "Log in to access your professional intelligence dashboard.",
             modifier = Modifier.padding(top = 12.dp),
         )
@@ -64,7 +61,7 @@ fun LoginScreen(
             label = "Password",
             value = data.password,
             onValueChange = { onAction(LoginAction.OnPasswordChanged(it)) },
-            placeholder = "••••••••",
+            placeholder = "",
             isPassword = true,
             isPasswordVisible = data.isPasswordVisible,
             onPasswordVisibilityToggle = { onAction(LoginAction.OnPasswordVisibilityToggle) },
@@ -77,16 +74,8 @@ fun LoginScreen(
             modifier = Modifier.padding(top = 6.dp),
         )
 
-        Spacer(modifier = Modifier.height(14.dp))
-
-        InlineStatus(
-            icon = Icons.Default.VerifiedUser,
-            text = "Enterprise Grade Security",
-            modifier = Modifier.fillMaxWidth(),
-        )
-
         AuthFooterLink(
-            prefix = "New to Executive Lens?",
+            prefix = "New to LinkedIn Maxxer?",
             suffix = "Register",
             onClick = onNavigateToRegister,
             modifier = Modifier.padding(top = 4.dp),

@@ -5,11 +5,17 @@ import com.linkedinmaxxer.app.domain.model.response.ApiErrorResponse
 import kotlinx.serialization.json.Json
 import retrofit2.Response
 
+@Suppress("UNCHECKED_CAST")
 fun <T> requestBody(request: Response<T>): Result<T> {
     return try {
         if (request.isSuccessful) {
-            request.body()?.let { Result.success(it) }
-                ?: Result.failure(NetworkException.UnknownError("Empty response body"))
+            val body = request.body()
+            if (body != null) {
+                Result.success(body)
+            } else {
+                // 204 No Content — valid success with no body (e.g. DELETE, toggle endpoints)
+                Result.success(Unit as T)
+            }
         } else {
             val errorBody = request.errorBody()?.string().orEmpty()
             val apiError = Json { ignoreUnknownKeys = true }

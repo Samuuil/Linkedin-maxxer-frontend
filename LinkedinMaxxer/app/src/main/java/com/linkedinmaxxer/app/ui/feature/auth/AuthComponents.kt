@@ -91,6 +91,8 @@ fun AuthTextField(
                 unfocusedBorderColor = SurfaceContainerHighest,
                 focusedContainerColor = MaterialTheme.colorScheme.surface,
                 unfocusedContainerColor = SurfaceContainerHighest,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
             ),
             visualTransformation = if (isPassword && !isPasswordVisible) {
                 PasswordVisualTransformation()

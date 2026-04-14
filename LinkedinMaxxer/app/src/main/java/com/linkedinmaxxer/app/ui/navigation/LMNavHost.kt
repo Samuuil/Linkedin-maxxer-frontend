@@ -132,6 +132,11 @@ fun LMNavHost(navController: NavHostController) {
                 data = state,
                 onAction = viewModel::onAction,
                 onPublished = { navigateAndPopBackstack(Screens.POSTS_SCREEN, navController) },
+                onOpenHome = { navController.navigate(Screens.HOME_SCREEN) },
+                onOpenPosts = { navController.navigate(Screens.POSTS_SCREEN) },
+                onOpenSubscriptions = { navController.navigate(Screens.SUBSCRIPTIONS_SCREEN) },
+                onOpenHints = { navController.navigate(Screens.HINTS_SCREEN) },
+                onOpenSettings = { navController.navigate(Screens.SETTINGS_SCREEN) },
             )
         }
 
