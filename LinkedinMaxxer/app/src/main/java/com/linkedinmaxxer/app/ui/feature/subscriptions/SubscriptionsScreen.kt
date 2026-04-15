@@ -174,7 +174,7 @@ fun SubscriptionsScreen(
                         singleLine = true,
                         modifier = Modifier
                             .weight(1f)
-                            .height(68.dp),
+                            .height(56.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Primary.copy(alpha = 0.6f),
                             unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
@@ -187,34 +187,27 @@ fun SubscriptionsScreen(
                         enabled = !data.isSubmitting,
                         shape = RoundedCornerShape(999.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Primary),
-                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 0.dp),
                         modifier = Modifier
-                            .width(118.dp)
-                            .height(68.dp),
+                            .width(112.dp)
+                            .height(48.dp),
                     ) {
                         Icon(
                             Icons.Default.PersonAdd,
                             contentDescription = null,
                             tint = Color.White,
-                            modifier = Modifier.size(22.dp),
+                            modifier = Modifier.size(16.dp),
                         )
-                        Spacer(Modifier.weight(1f))
-                        Column(horizontalAlignment = Alignment.End) {
-                            Text(
-                                "Add",
-                                fontFamily = ManropeFamily,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White,
-                                style = MaterialTheme.typography.labelLarge,
-                            )
-                            Text(
-                                "New",
-                                fontFamily = ManropeFamily,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White,
-                                style = MaterialTheme.typography.labelLarge,
-                            )
-                        }
+                        Spacer(Modifier.width(5.dp))
+                        Text(
+                            "Add New",
+                            fontFamily = ManropeFamily,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            style = MaterialTheme.typography.labelSmall,
+                            maxLines = 1,
+                            softWrap = false,
+                        )
                     }
                 }
             }
