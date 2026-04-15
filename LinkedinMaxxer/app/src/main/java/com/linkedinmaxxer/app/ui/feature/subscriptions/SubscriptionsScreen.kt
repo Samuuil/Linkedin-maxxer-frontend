@@ -165,7 +165,7 @@ fun SubscriptionsScreen(
                         onValueChange = { onAction(SubscriptionsAction.OnLinkedinUrlChanged(it)) },
                         placeholder = {
                             Text(
-                                "linkedin.com/in/name-12345",
+                                "LinkedIn username",
                                 style = MaterialTheme.typography.bodySmall,
                                 fontFamily = InterFamily,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),

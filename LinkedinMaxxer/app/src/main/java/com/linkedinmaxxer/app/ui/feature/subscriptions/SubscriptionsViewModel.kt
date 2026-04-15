@@ -72,7 +72,7 @@ class SubscriptionsViewModel(
     private fun subscribe() {
         val url = _state.value.linkedinUrlInput.trim()
         if (url.isBlank()) {
-            _state.update { it.copy(errorMessage = "LinkedIn URL is required.") }
+            _state.update { it.copy(errorMessage = "LinkedIn username is required.") }
             return
         }
 

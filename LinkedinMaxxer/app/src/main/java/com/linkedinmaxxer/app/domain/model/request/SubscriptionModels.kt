@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SubscribeModel(
-    val linkedinUrl: String,
+    val username: String,
 )
 
 @Serializable

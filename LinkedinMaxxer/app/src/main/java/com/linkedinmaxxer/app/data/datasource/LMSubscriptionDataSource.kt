@@ -14,7 +14,7 @@ class LMSubscriptionDataSource(
         safeRequest { subscriptionService.getSubscriptions() }
 
     override suspend fun subscribe(linkedinUrl: String): Result<SubscriptionResponse> =
-        safeRequest { subscriptionService.subscribe(SubscribeModel(linkedinUrl = linkedinUrl)) }
+        safeRequest { subscriptionService.subscribe(SubscribeModel(username = linkedinUrl)) }
 
     override suspend fun unsubscribe(subscriptionId: String): Result<Unit> =
         safeRequest { subscriptionService.unsubscribe(subscriptionId) }
