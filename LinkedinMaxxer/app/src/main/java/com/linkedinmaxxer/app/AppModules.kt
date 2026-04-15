@@ -30,6 +30,7 @@ import com.linkedinmaxxer.app.domain.repository.SubscriptionRepository
 import com.linkedinmaxxer.app.domain.usecase.account.GetProfileUseCase
 import com.linkedinmaxxer.app.domain.usecase.account.LogoutUseCase
 import com.linkedinmaxxer.app.domain.usecase.account.SetupLinkedinUseCase
+import com.linkedinmaxxer.app.domain.usecase.account.UpdatePushTokenUseCase
 import com.linkedinmaxxer.app.domain.usecase.auth.LoginUseCase
 import com.linkedinmaxxer.app.domain.usecase.auth.RegisterUseCase
 import com.linkedinmaxxer.app.ui.feature.auth.LoginViewModel
@@ -73,6 +74,7 @@ val appModule = module {
     factory { GetProfileUseCase(repository = lazy { get<AccountRepository>() }) }
     factory { LogoutUseCase(repository = lazy { get<AccountRepository>() }) }
     factory { SetupLinkedinUseCase(repository = lazy { get<AccountRepository>() }) }
+    factory { UpdatePushTokenUseCase(repository = lazy { get<AccountRepository>() }) }
     factory { GetSubscriptionsUseCase(repository = lazy { get<SubscriptionRepository>() }) }
     factory { SubscribeUseCase(repository = lazy { get<SubscriptionRepository>() }) }
     factory { UnsubscribeUseCase(repository = lazy { get<SubscriptionRepository>() }) }
@@ -137,5 +139,5 @@ val appModule = module {
     viewModel { HintsViewModel(getSuggestionsUseCase = get(), respondSuggestionUseCase = get()) }
     viewModel { SuggestionReviewViewModel(getSuggestionsUseCase = get(), respondSuggestionUseCase = get()) }
     viewModel { CreatePostViewModel(createPostUseCase = get(), enhanceDescriptionUseCase = get()) }
-    viewModel { SettingsViewModel(getProfileUseCase = get(), logoutUseCase = get()) }
+    viewModel { SettingsViewModel(getProfileUseCase = get(), logoutUseCase = get(), updatePushTokenUseCase = get()) }
 }

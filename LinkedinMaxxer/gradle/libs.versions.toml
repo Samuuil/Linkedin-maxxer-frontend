@@ -33,6 +33,12 @@ data_store_version = "1.1.2"
 
 kapt = "2.0.0"
 
+# Firebase
+firebase_bom_version = "33.7.0"
+
+# Google Services
+google_services_version = "4.4.2"
+
 # Coil
 coil_version = "2.6.0"
 
@@ -76,6 +82,11 @@ gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref
 data-store = { group = "androidx.datastore", name = "datastore-core", version.ref = "data_store_version" }
 data-store-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "data_store_version" }
 
+# Firebase
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase_bom_version" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx" }
+coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.1" }
+
 # Coil
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
 
@@ -85,3 +96,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google_services_version" }

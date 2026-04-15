@@ -1,6 +1,7 @@
 package com.linkedinmaxxer.app.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
@@ -31,7 +32,18 @@ import com.linkedinmaxxer.app.ui.feature.subscriptions.SubscriptionsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LMNavHost(navController: NavHostController) {
+fun LMNavHost(
+    navController: NavHostController,
+    initialSuggestionId: String? = null,
+    onSuggestionIdConsumed: () -> Unit = {},
+) {
+    LaunchedEffect(initialSuggestionId) {
+        if (initialSuggestionId != null) {
+            navController.navigate("${Screens.SUGGESTION_REVIEW_SCREEN}/$initialSuggestionId")
+            onSuggestionIdConsumed()
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = Screens.LOGIN_SCREEN,
