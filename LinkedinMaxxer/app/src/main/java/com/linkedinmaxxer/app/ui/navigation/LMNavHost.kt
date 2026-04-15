@@ -9,6 +9,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.linkedinmaxxer.app.data.session.SessionManager
 import com.linkedinmaxxer.app.ui.feature.auth.LoginScreen
 import com.linkedinmaxxer.app.ui.feature.auth.LoginViewModel
 import com.linkedinmaxxer.app.ui.feature.auth.RegisterScreen
@@ -37,6 +38,12 @@ fun LMNavHost(
     initialSuggestionId: String? = null,
     onSuggestionIdConsumed: () -> Unit = {},
 ) {
+    val startDestination = if (SessionManager.getToken().isNotBlank()) {
+        Screens.HOME_SCREEN
+    } else {
+        Screens.LOGIN_SCREEN
+    }
+
     LaunchedEffect(initialSuggestionId) {
         if (initialSuggestionId != null) {
             navController.navigate("${Screens.SUGGESTION_REVIEW_SCREEN}/$initialSuggestionId")
@@ -46,7 +53,7 @@ fun LMNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = Screens.LOGIN_SCREEN,
+        startDestination = startDestination,
     ) {
         composable(Screens.LOGIN_SCREEN) {
             val viewModel = koinViewModel<LoginViewModel>()
